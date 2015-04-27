@@ -2,6 +2,8 @@
 
 Apply filters to image using depth map to vary intensity.
 
+*See example at bottom
+
 ## Requirements
 
 * Python 2.7+
@@ -38,3 +40,15 @@ You can use Google Camera Lens Blur to create an image and then pull out the sou
 ## Author
 
 Bran Sorem <[bransorem@gmail.com](mailto:bransorem@gmail.com)>
+
+
+## Example
+
+Input image:
+![](https://github.com/bransorem/depth-varied-filters/blob/master/Flowers-alternative.jpg)
+
+Input depth map:
+![](https://github.com/bransorem/depth-varied-filters/blob/master/Flowers-depth.jpg)
+
+Output (blur filter):
+![](https://github.com/bransorem/depth-varied-filters/blob/master/blur.jpg)
