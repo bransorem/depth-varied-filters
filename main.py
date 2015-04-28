@@ -96,6 +96,24 @@ def edge_filter(img, a):
   o = cv2.addWeighted(img, k, lap, j, 0, dtype=0)
   return o
 
+# Change darkness by epsilon value (a)
+def night_filter(img, a):
+  o = np.zeros(img.shape)
+  b = float(a.item())
+  k = (255-b+20) / 255
+  j = 1 - k
+  o = cv2.addWeighted(img, k, o, j, 0, dtype=0)
+  return o
+
+# Change lightness by epsilon value (a)
+def fog_filter(img, a):
+  o = np.zeros(img.shape)
+  o[o == 0] = 255
+  b = float(a.item())
+  k = (255-b+20) / 255
+  j = 1 - k
+  o = cv2.addWeighted(img, k, o, j, 0, dtype=0)
+  return o
 
 ###############################################
 ### Filters
@@ -116,11 +134,12 @@ def get_layer(slice, l_mask):
 # Run mask on all layers and combine into output (out)
 for a in layers:
   l_mask = layer_mask(depth, a, a+s)
-  ## BLUR
-  res = blur_filter(img, a - min_depth)
+  # res = blur_filter(img, a - min_depth)
   # res = hue_filter(img, a - min_depth)
   # res = saturation_filter(img, a - min_depth)
   # res = edge_filter(img, a)
+  res = fog_filter(img, a)
+  # res = night_filter(img, a)
 
   layer, mask, mask_inv = get_layer(res, l_mask)
   out = cv2.add(out, layer, dtype=0)
